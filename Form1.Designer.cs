@@ -797,7 +797,7 @@ namespace WindowsFormsApp1
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1058, 782);
+            this.pictureBox2.Location = new System.Drawing.Point(413, 782);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(52, 50);
             this.pictureBox2.TabIndex = 60;
@@ -806,7 +806,7 @@ namespace WindowsFormsApp1
             // pictureBox3
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(848, 782);
+            this.pictureBox3.Location = new System.Drawing.Point(636, 782);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(52, 50);
             this.pictureBox3.TabIndex = 61;
@@ -815,7 +815,7 @@ namespace WindowsFormsApp1
             // pictureBox4
             // 
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(633, 782);
+            this.pictureBox4.Location = new System.Drawing.Point(837, 782);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(52, 50);
             this.pictureBox4.TabIndex = 62;
@@ -824,7 +824,7 @@ namespace WindowsFormsApp1
             // pictureBox5
             // 
             this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(414, 782);
+            this.pictureBox5.Location = new System.Drawing.Point(1053, 782);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(52, 50);
             this.pictureBox5.TabIndex = 63;
@@ -1053,7 +1053,7 @@ namespace WindowsFormsApp1
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 500;
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // button41

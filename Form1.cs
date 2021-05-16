@@ -106,13 +106,27 @@ namespace WindowsFormsApp1
                 if (myBuilding.newOp[i])
                 {
                     int temp = myBuilding.judge(i + 1);
-                    if (i + 1 > myBuilding.myElevator[temp].upDestination)
+
+                    if (myBuilding.myElevator[temp].upDestination != -1 && i + 1 > myBuilding.myElevator[temp].upDestination)
                     {
                         myBuilding.myElevator[temp].upDestination = i + 1;
                     }
-                    if (i + 1 < myBuilding.myElevator[temp].downDestination)
+                    else if (myBuilding.myElevator[temp].downDestination != -1 && i + 1 < myBuilding.myElevator[temp].downDestination)
                     {
                         myBuilding.myElevator[temp].downDestination = i + 1;
+                    }
+                    else
+                    {
+                        if (i + 1 > myBuilding.myElevator[temp].nowAt)
+                        {
+                            myBuilding.myElevator[temp].upDestination = i + 1;
+                            myBuilding.myElevator[temp].isUp = true;
+                        }
+                        else if(i+1< myBuilding.myElevator[temp].nowAt)
+                        {
+                            myBuilding.myElevator[temp].downDestination = i + 1;
+                            myBuilding.myElevator[temp].isDown = true;
+                        }
                     }
                 }
             }
@@ -481,426 +495,511 @@ namespace WindowsFormsApp1
         private void button98_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[0].needToStop[15] = true;
+            set(0, 16);
         }
 
         private void button97_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[0].needToStop[16] = true;
+            set(0, 17);
         }
 
         private void button96_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[0].needToStop[17] = true;
+            set(0, 18);
         }
 
         private void button95_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[0].needToStop[18] = true;
+            set(0, 19);
         }
 
         private void button94_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[0].needToStop[19] = true;
+            set(0, 20);
         }
 
         private void button91_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[0] = true;
+            set(1, 1);
         }
 
         private void button60_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[1] = true;
+            set(1, 2);
         }
 
         private void button61_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[2] = true;
+            set(1, 3);
         }
 
         private void button62_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[3] = true;
+            set(1, 4);
         }
 
         private void button63_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[4] = true;
+            set(1, 5);
         }
 
         private void button90_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[5] = true;
+            set(1, 6);
         }
 
         private void button64_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[6] = true;
+            set(1, 7);
         }
 
         private void button65_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[7] = true;
+            set(1, 8);
         }
 
         private void button66_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[8] = true;
+            set(1, 9);
         }
 
         private void button67_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[9] = true;
+            set(1, 10);
         }
 
         private void button57_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[10] = true;
+            set(1, 11);
         }
 
         private void button58_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[11] = true;
+            set(1, 12);
         }
 
         private void button59_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[12] = true;
+            set(1, 13);
         }
 
         private void button41_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[13] = true;
+            set(1, 14);
         }
 
         private void button43_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[14] = true;
+            set(1, 15);
         }
 
         private void button44_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[15] = true;
+            set(1, 16);
         }
 
         private void button45_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[16] = true;
+            set(1, 17);
         }
 
         private void button46_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[17] = true;
+            set(1, 18);
         }
 
         private void button55_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[18] = true;
+            set(1, 19);
         }
 
         private void button56_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[1].needToStop[19] = true;
+            set(1, 20);
         }
 
         private void button123_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[0] = true;
+            set(2, 1);
         }
 
         private void button109_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[1] = true;
+            set(2, 2);
         }
 
         private void button110_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[2] = true;
+            set(2, 3);
         }
 
         private void button111_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[3] = true;
+            set(2, 4);
         }
 
         private void button112_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[4] = true;
+            set(2, 5);
         }
 
         private void button122_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[5] = true;
+            set(2, 6);
         }
 
         private void button113_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[6] = true;
+            set(2, 7);
         }
 
         private void button114_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[7] = true;
+            set(2, 8);
         }
 
         private void button115_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[8] = true;
+            set(2, 9);
         }
 
         private void button121_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[9] = true;
+            set(2, 10);
         }
 
         private void button106_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[10] = true;
+            set(2, 11);
         }
 
         private void button107_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[11] = true;
+            set(2, 12);
         }
 
         private void button108_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[12] = true;
+            set(2, 13);
         }
 
         private void button92_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[13] = true;
+            set(2, 14);
         }
 
         private void button93_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[14] = true;
+            set(2, 15);
         }
 
         private void button101_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[15] = true;
+            set(2, 16);
         }
 
         private void button102_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[16] = true;
+            set(2, 17);
         }
 
         private void button103_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[17] = true;
+            set(2, 18);
         }
 
         private void button104_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[18] = true;
+            set(2, 19);
         }
 
         private void button105_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[2].needToStop[19] = true;
+            set(2, 20);
         }
 
         private void button132_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[0] = true;
+            set(3, 1);
         }
 
         private void button116_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[1] = true;
+            set(3, 2);
         }
 
         private void button117_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[2] = true;
+            set(3, 3);
         }
 
         private void button118_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[3] = true;
+            set(3, 4);
         }
 
         private void button119_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[4] = true;
+            set(3, 5);
         }
 
         private void button131_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[5] = true;
+            set(3, 6);
         }
 
         private void button120_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[6] = true;
+            set(3, 7);
         }
 
         private void button128_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[7] = true;
+            set(3, 8);
         }
 
         private void button129_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[8] = true;
+            set(3, 9);
         }
 
         private void button130_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[9] = true;
+            set(3, 10);
         }
 
         private void button77_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[10] = true;
+            set(3, 11);
         }
 
         private void button78_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[11] = true;
+            set(3, 12);
         }
 
         private void button89_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[12] = true;
+            set(3, 13);
         }
 
         private void button42_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[13] = true;
+            set(3, 14);
         }
 
         private void button68_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[14] = true;
+            set(3, 15);
         }
 
         private void button69_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[15] = true;
+            set(3, 16);
         }
 
         private void button70_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[16] = true;
+            set(3, 17);
         }
 
         private void button71_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[17] = true;
+            set(3, 18);
         }
 
         private void button72_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[18] = true;
+            set(3, 19);
         }
 
         private void button73_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[3].needToStop[19] = true;
+            set(3, 20);
         }
 
         private void button138_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[0] = true;
+            set(4, 1);
         }
 
         private void button124_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[1] = true;
+            set(4, 2);
         }
 
         private void button125_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[2] = true;
+            set(4, 3);
         }
 
         private void button126_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[3] = true;
+            set(4, 4);
         }
 
         private void button127_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[4] = true;
+            set(4, 5);
         }
 
         private void button137_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[5] = true;
+            set(4, 6);
         }
 
         private void button133_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[6] = true;
+            set(4, 7);
         }
 
         private void button134_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[7] = true;
+            set(4, 8);
         }
 
         private void button135_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[8] = true;
+            set(4, 9);
         }
 
         private void button136_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[9] = true;
+            set(4, 10);
         }
 
         private void button83_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[10] = true;
+            set(4, 11);
         }
 
         private void button84_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[11] = true;
+            set(4, 12);
         }
 
         private void button88_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[12] = true;
+            set(4, 13);
         }
 
         private void button74_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[13] = true;
+            set(4, 14);
         }
 
         private void button75_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[14] = true;
+            set(4, 15);
         }
 
         private void button76_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[15] = true;
+            set(4, 16);
         }
 
         private void button79_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[16] = true;
+            set(4, 17);
         }
 
         private void button80_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[17] = true;
+            set(4, 18);
         }
 
         private void button81_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[18] = true;
+            set(4, 19);
         }
 
         private void button82_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].needToStop[19] = true;
+            set(4, 20);
         }
     }
 }
