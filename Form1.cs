@@ -144,6 +144,7 @@ namespace WindowsFormsApp1
                         myBuilding.myElevator[i].isDown = true;
                     }
                 }
+                elevatorPutOut(i);
             }
             //以下检查目的地是否已被其他电梯抢先到达
             pictureBox1.Location = new Point(pictureBox1.Location.X, 550 - 27 * myBuilding.myElevator[0].nowAt);
@@ -154,6 +155,535 @@ namespace WindowsFormsApp1
             for (int i = 0; i < 20; i++)
             {
                 myBuilding.newOp[i] = false;
+            }
+        }
+        private void putOut(int floorNum,bool isUp,bool isDown)
+        {
+            switch (floorNum)
+            {
+                case 1:
+                    button1.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 2:
+                    if(!isDown)
+                        button13.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if(!isUp)
+                        button34.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 3:
+                    if (!isDown)
+                        button12.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button35.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 4:
+                    if (!isDown)
+                        button11.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button36.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 5:
+                    if (!isDown)
+                        button10.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button37.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 6:
+                    if (!isDown)
+                        button9.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button38.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 7:
+                    if (!isDown)
+                        button8.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button39.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 8:
+                    if (!isDown)
+                        button7.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button30.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 9:
+                    if (!isDown)
+                        button6.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button31.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 10:
+                    if (!isDown)
+                        button5.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button32.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 11:
+                    if (!isDown)
+                        button4.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button29.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 12:
+                    if (!isDown)
+                        button3.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    button24.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 13:
+                    if (!isDown)
+                        button2.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button25.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 14:
+                    if (!isDown)
+                        button17.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button26.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 15:
+                    if (!isDown)
+                        button16.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button27.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 16:
+                    if (!isDown)
+                        button15.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button28.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 17:
+                    if (!isDown)
+                        button14.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button23.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 18:
+                    if (!isDown)
+                        button19.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button21.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 19:
+                    if (!isDown)
+                        button18.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button22.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                case 20:
+                    button20.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void elevatorPutOut(int numOfElevator)
+        {
+            putOut(myBuilding.myElevator[numOfElevator].nowAt, myBuilding.myElevator[numOfElevator].isUp, 
+                myBuilding.myElevator[numOfElevator].isDown);
+            switch (myBuilding.myElevator[numOfElevator].nowAt)
+            {
+                case 1:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button33.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button91.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button123.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button132.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button138.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button54.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button60.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button109.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button116.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button124.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button53.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button61.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button110.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button117.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button125.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button52.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button62.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button111.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button118.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button126.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 5:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button51.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button63.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button112.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button119.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button127.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 6:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button40.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button90.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button122.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button131.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button137.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 7:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button50.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button64.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button113.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button120.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button133.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 8:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button49.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button65.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button114.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button128.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button134.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 9:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button48.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button66.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button115.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button129.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button135.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 10:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button47.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button67.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button121.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button130.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button136.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 11:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button87.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button57.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button106.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button77.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button83.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 12:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button86.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button58.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button107.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button78.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button84.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 13:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button85.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button59.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button108.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button89.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button88.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 14:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button100.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button41.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button92.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button42.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button74.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 15:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button99.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button43.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button93.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button68.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button75.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 16:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button98.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button44.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button101.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button69.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button76.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 17:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button97.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button45.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button102.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button70.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button79.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 18:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button96.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button46.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button103.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button71.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button80.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 19:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button95.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button55.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button104.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button72.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button81.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
+                case 20:
+                    switch (numOfElevator)
+                    {
+                        case 0:
+                            button94.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 1:
+                            button56.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 2:
+                            button105.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 3:
+                            button73.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                        case 4:
+                            button82.BackColor = Color.FromArgb(255, 240, 240, 240);
+                            break;
+                    }
+                    break;
             }
         }
         private void set(int eleNum,int flNum)
@@ -1137,6 +1667,56 @@ namespace WindowsFormsApp1
             myBuilding.myElevator[4].needToStop[19] = true;
             set(4, 20);
             button82.BackColor = Color.DeepSkyBlue;
+        }
+
+        private void button140_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[0].stop = false;
+        }
+
+        private void button139_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[0].stop = true;
+        }
+
+        private void button142_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[1].stop = true;
+        }
+
+        private void button144_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[2].stop = true;
+        }
+
+        private void button148_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[3].stop = true;
+        }
+
+        private void button146_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[4].stop = true;
+        }
+
+        private void button141_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[1].stop = false;
+        }
+
+        private void button143_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[2].stop = false;
+        }
+
+        private void button147_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[3].stop = false;
+        }
+
+        private void button145_Click(object sender, EventArgs e)
+        {
+            myBuilding.myElevator[4].stop = false;
         }
     }
 }
