@@ -125,7 +125,7 @@ namespace WindowsFormsApp1
                             {
                                 cost[i]++;
                             }
-                            else if (myElevator[i].needToStop[j])
+                            else if (myElevator[i].needToStop[j - 1])
                             {
                                 cost[i]++;
                             }
@@ -190,14 +190,14 @@ namespace WindowsFormsApp1
                         cost[i] = (myElevator[i].nowAt - end) + (floorNum - end);
                         for (int j = myElevator[i].nowAt; j > end; j--)
                         {
-                            if (requestToDown[i - 1])
+                            if (requestToDown[j - 1])
                             {
                                 cost[i]++;
                             }
                         }
                         for (int j = end; j < floorNum; j++)
                         {
-                            if (requestToDown[i - 1])
+                            if (requestToDown[j - 1])
                             {
                                 cost[i]++;
                             }
