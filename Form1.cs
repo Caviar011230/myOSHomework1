@@ -20,7 +20,7 @@ namespace WindowsFormsApp1
         public Building myBuilding = new Building();
         private void label1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -40,21 +40,27 @@ namespace WindowsFormsApp1
             button1.BackColor = Color.DeepSkyBlue;
         }
 
-       private void emergency(int elevatorNum)
+        private void emergency(int elevatorNum)
         {
             myBuilding.myElevator[elevatorNum].stop = true;
             myBuilding.myElevator[elevatorNum].stopTime = 10000;
             int up = myBuilding.myElevator[elevatorNum].upDestination;
             int down = myBuilding.myElevator[elevatorNum].downDestination;
-            int temp;
-            if (up != -1)
+            for(int i = 0; i < 20; i++)
             {
-                temp = myBuilding.judge(up, elevatorNum);
+                myBuilding.myElevator[elevatorNum].needToStop[i] = false;
+                elevatorPutOutItem(i + 1, elevatorNum);
+                
+            }
+            //int temp;
+            /*if (up != -1)
+            {
+                temp = myBuilding.judge(up, elevatorNum,true);
                 if (myBuilding.myElevator[temp].upDestination != -1 && up > myBuilding.myElevator[temp].upDestination)
                 {
                     myBuilding.myElevator[temp].upDestination = up;
                 }
-                
+
                 else
                 {
                     if (up > myBuilding.myElevator[temp].nowAt)
@@ -64,12 +70,12 @@ namespace WindowsFormsApp1
                         if (!myBuilding.myElevator[temp].isDown)
                             myBuilding.myElevator[temp].isUp = true;
                     }
-                    
+
                 }
             }
             if (down != -1)
             {
-                temp = myBuilding.judge(down, elevatorNum);
+                temp = myBuilding.judge(down, elevatorNum,false);
                 if (myBuilding.myElevator[temp].downDestination != -1 && down < myBuilding.myElevator[temp].downDestination)
                 {
                     myBuilding.myElevator[temp].downDestination = down;
@@ -81,18 +87,116 @@ namespace WindowsFormsApp1
                     if (!myBuilding.myElevator[temp].isUp)
                         myBuilding.myElevator[temp].isDown = true;
                 }
-            }
+            }*/
         }
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             if (!myBuilding.allFalse())
             {
+                
+                /* for (int i = 0; i < 5; i++)
+                 {
+                     for(int j = 0; j < 20; j++)
+                     {
+                         myBuilding.myElevator[i].u
+                     }
+                 }*/
                 return;
             }//如果没有任何运行需求，则无动作
-            
+            myBuilding.clear();
             for(int i = 0; i < 5; i++)
+            {
+                /*for(int j = 0; j < 20; j++)
+                {
+                    if (myBuilding.myElevator[i].needToStop[j]&& !myBuilding.myElevator[i].isDown&&
+                        !myBuilding.myElevator[i].isUp)
+                    {
+                        if(j+1> myBuilding.myElevator[i].nowAt)
+                        {
+                            myBuilding.myElevator[i].isUp = true;
+                        }
+                        else
+                        {
+                            myBuilding.myElevator[i].isDown = true;
+                        }
+                    }
+                }*/
+                if (myBuilding.myElevator[i].upDestination <= myBuilding.myElevator[i].nowAt && myBuilding.myElevator[i].isUp)
+                {
+                    myBuilding.myElevator[i].isUp = false;
+                    if (myBuilding.myElevator[i].downDestination != -1)
+                    {
+                        myBuilding.myElevator[i].isDown = true;
+                        if (myBuilding.myElevator[i].upDestination < myBuilding.myElevator[i].downDestination&&
+                            (myBuilding.myElevator[i].needToStop[myBuilding.myElevator[i].upDestination]))
+                        {
+                            myBuilding.myElevator[i].downDestination = myBuilding.myElevator[i].upDestination;
+                        }
+                    }
+                    myBuilding.myElevator[i].upDestination = -1;
+                }
+                if (myBuilding.myElevator[i].downDestination >= myBuilding.myElevator[i].nowAt && myBuilding.myElevator[i].isDown)
+                {
+                    myBuilding.myElevator[i].isDown = false;
+                    if (myBuilding.myElevator[i].upDestination != -1)
+                    {
+                        myBuilding.myElevator[i].isUp = true;
+                        if (myBuilding.myElevator[i].downDestination < myBuilding.myElevator[i].upDestination&&
+                            (myBuilding.myElevator[i].needToStop[myBuilding.myElevator[i].downDestination]))
+                        {
+                            myBuilding.myElevator[i].upDestination = myBuilding.myElevator[i].downDestination;
+                        }
+                    }
+                    myBuilding.myElevator[i].downDestination = -1;
+                }
+            }
+            if (!myBuilding.myElevator[0].isUp&&!myBuilding.myElevator[0].isDown&&
+                !myBuilding.myElevator[1].isUp && !myBuilding.myElevator[1].isDown &&
+                !myBuilding.myElevator[2].isUp && !myBuilding.myElevator[2].isDown &&
+                !myBuilding.myElevator[3].isUp && !myBuilding.myElevator[3].isDown &&
+                !myBuilding.myElevator[4].isUp && !myBuilding.myElevator[4].isDown )
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    if (myBuilding.requestToUp[i])
+                    {
+                        if (myBuilding.myElevator[myBuilding.judge(i + 1, -1,true)].nowAt > i + 1)
+                        {
+                            myBuilding.myElevator[myBuilding.judge(i + 1, -1,true)].downDestination = i + 1;
+                            myBuilding.myElevator[myBuilding.judge(i + 1, -1,true)].isDown = true;
+                        }
+                        if (myBuilding.myElevator[myBuilding.judge(i + 1, -1,true)].nowAt < i + 1)
+                        {
+                            myBuilding.myElevator[myBuilding.judge(i + 1, -1,true)].upDestination = i + 1;
+                            myBuilding.myElevator[myBuilding.judge(i + 1, -1,true)].isUp = true;
+                        }
+                    }
+                    if (myBuilding.requestToDown[i])
+                    {
+                        if (myBuilding.myElevator[myBuilding.judge(i + 1, -1,false)].nowAt > i + 1)
+                        {
+                            myBuilding.myElevator[myBuilding.judge(i + 1, -1,false)].downDestination = i + 1;
+                            myBuilding.myElevator[myBuilding.judge(i + 1, -1,false)].isDown = true;
+                        }
+                        if (myBuilding.myElevator[myBuilding.judge(i + 1, -1,false)].nowAt < i + 1)
+                        {
+                            myBuilding.myElevator[myBuilding.judge(i + 1, -1,false)].upDestination = i + 1;
+                            myBuilding.myElevator[myBuilding.judge(i + 1, -1,false)].isUp = true;
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                if (myBuilding.myElevator[i].upDestination == -1 && myBuilding.myElevator[i].downDestination == -1)
+                {
+                    myBuilding.myElevator[i].isUp = false;
+                    myBuilding.myElevator[i].isDown = false;
+                }
+            }
+            for (int i = 0; i < 5; i++)
             {
                 if (!myBuilding.myElevator[i].stop)
                 {
@@ -104,9 +208,21 @@ namespace WindowsFormsApp1
                     {
                         myBuilding.myElevator[i].nowAt--;
                     }
+                    numChange(i);
+                }
+                if (!myBuilding.myElevator[i].isDown && !myBuilding.myElevator[i].isUp)
+                {
+                    if (myBuilding.myElevator[i].upDestination != -1 && myBuilding.myElevator[i].upDestination > myBuilding.myElevator[i].nowAt)
+                    {
+                        myBuilding.myElevator[i].isUp = true;
+                    }
+                    else if (myBuilding.myElevator[i].downDestination != -1 && myBuilding.myElevator[i].downDestination < myBuilding.myElevator[i].nowAt)
+                    {
+                        myBuilding.myElevator[i].isDown = true;
+                    }
                 }
             }
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (myBuilding.myElevator[i].stop)
                 {
@@ -122,62 +238,115 @@ namespace WindowsFormsApp1
                     {
                         myBuilding.myElevator[i].upDestination = -1;
                         myBuilding.myElevator[i].isUp = false;
+                        myBuilding.myElevator[i].stop = true;
+                        myBuilding.myElevator[i].stopTime = 3;
+                        elevatorPutOut(i);
                         if (myBuilding.myElevator[i].downDestination != -1)
                         {
                             myBuilding.myElevator[i].isDown = true;
                         }
                     }
-                    if (myBuilding.myElevator[i].isDown && myBuilding.myElevator[i].nowAt == myBuilding.myElevator[i].downDestination)
+                    if (myBuilding.myElevator[i].isDown && myBuilding.myElevator[i].nowAt == myBuilding.myElevator[i].downDestination//&&
+                        /*!(myBuilding.myElevator[i].nowAt<myBuilding.myElevator[i].upDestination&&myBuilding.myElevator[i].isUp)*/)
                     {
                         myBuilding.myElevator[i].downDestination = -1;
                         myBuilding.myElevator[i].isDown = false;
+                        myBuilding.myElevator[i].stop = true;
+                        myBuilding.myElevator[i].stopTime = 3;
+                        elevatorPutOut(i);
                         if (myBuilding.myElevator[i].upDestination != -1)
                         {
                             myBuilding.myElevator[i].isUp = true;
                         }
                     }
-                    if(myBuilding.myElevator[i].needToStop[myBuilding.myElevator[i].nowAt-1]||//记得-1！！！
-                        (!myBuilding.myElevator[i].isDown&&myBuilding.requestToUp[myBuilding.myElevator[i].nowAt-1])||
+                    if (myBuilding.myElevator[i].needToStop[myBuilding.myElevator[i].nowAt - 1] ||//记得-1！！！
+                        (!myBuilding.myElevator[i].isDown && myBuilding.requestToUp[myBuilding.myElevator[i].nowAt - 1]) ||
                         (!myBuilding.myElevator[i].isUp && myBuilding.requestToDown[myBuilding.myElevator[i].nowAt - 1]))
                     {
                         myBuilding.myElevator[i].stop = true;
                         myBuilding.myElevator[i].stopTime = 3;
                         myBuilding.myElevator[i].needToStop[myBuilding.myElevator[i].nowAt - 1] = false;
-                        myBuilding.requestToUp[myBuilding.myElevator[i].nowAt - 1] = false;
-                        myBuilding.requestToDown[myBuilding.myElevator[i].nowAt - 1] = false;
+                        if (!myBuilding.myElevator[i].isDown)
+                            myBuilding.requestToUp[myBuilding.myElevator[i].nowAt - 1] = false;
+                        if (!myBuilding.myElevator[i].isUp)
+                            myBuilding.requestToDown[myBuilding.myElevator[i].nowAt - 1] = false;
                     }//设置为stop的情况
                 }
             }
             //以下是为电梯外部按上下按钮的情况进行分配
-            for(int i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++)
             {
                 if (myBuilding.newOp[i])
                 {
-                    int temp = myBuilding.judge(i + 1,-1);
-
-                    if (myBuilding.myElevator[temp].upDestination != -1 && i + 1 > myBuilding.myElevator[temp].upDestination)
+                    int temp;
+                    if (myBuilding.requestToUp[i]) 
+                        temp = myBuilding.judge(i + 1, -1,true);
+                    else
+                        temp = myBuilding.judge(i + 1, -1, true);
+                    if ((myBuilding.myElevator[temp].upDestination != -1 && i + 1 > myBuilding.myElevator[temp].upDestination)||
+                        (myBuilding.myElevator[temp].downDestination != -1 && i + 1 < myBuilding.myElevator[temp].downDestination)) 
                     {
-                        myBuilding.myElevator[temp].upDestination = i + 1;
-                    }
-                    else if (myBuilding.myElevator[temp].downDestination != -1 && i + 1 < myBuilding.myElevator[temp].downDestination)
-                    {
-                        myBuilding.myElevator[temp].downDestination = i + 1;
+                        if (myBuilding.myElevator[temp].upDestination != -1 && i + 1 > myBuilding.myElevator[temp].upDestination)
+                        {
+                            myBuilding.myElevator[temp].upDestination = i + 1;
+                        }
+                        if (myBuilding.myElevator[temp].downDestination != -1 && i + 1 < myBuilding.myElevator[temp].downDestination)
+                        {
+                            myBuilding.myElevator[temp].downDestination = i + 1;
+                        }
                     }
                     else
                     {
                         if (i + 1 > myBuilding.myElevator[temp].nowAt)
                         {
-                            if(i+1> myBuilding.myElevator[temp].upDestination)
+                            if (i + 1 > myBuilding.myElevator[temp].upDestination)
                                 myBuilding.myElevator[temp].upDestination = i + 1;
-                            if (!myBuilding.myElevator[temp].isDown)
+                            if (!myBuilding.myElevator[temp].isDown && (myBuilding.requestToUp[i]))
                                 myBuilding.myElevator[temp].isUp = true;
-                        }
-                        else if(i+1< myBuilding.myElevator[temp].nowAt)
-                        {
-                            if(i+1<myBuilding.myElevator[temp].downDestination)
+                            else
+                            {
+                                if (!myBuilding.myElevator[temp].isUp)
+                                    myBuilding.myElevator[temp].isDown = true;
+                                if (i + 1 < myBuilding.myElevator[temp].downDestination || myBuilding.myElevator[temp].downDestination == -1)
+                                    myBuilding.myElevator[temp].downDestination = i + 1;
+                            }
+                            if (myBuilding.requestToDown[i] && i + 1 < myBuilding.myElevator[temp].upDestination &&
+                                (myBuilding.myElevator[temp].downDestination > i + 1 || myBuilding.myElevator[temp].downDestination == -1))
+                            {
                                 myBuilding.myElevator[temp].downDestination = i + 1;
-                            if(!myBuilding.myElevator[temp].isUp)
+                            }
+                        }
+                        else if (i + 1 < myBuilding.myElevator[temp].nowAt)
+                        {
+                            if (i + 1 < myBuilding.myElevator[temp].downDestination)
+                                myBuilding.myElevator[temp].downDestination = i + 1;
+                            if (!myBuilding.myElevator[temp].isUp && myBuilding.requestToDown[i])
                                 myBuilding.myElevator[temp].isDown = true;
+                            else
+                            {
+                                if (!myBuilding.myElevator[temp].isDown)
+                                    myBuilding.myElevator[temp].isUp = true;
+                                if (i + 1 > myBuilding.myElevator[temp].upDestination || myBuilding.myElevator[temp].upDestination == -1)
+                                    myBuilding.myElevator[temp].upDestination = i + 1;
+                            }
+                            if (myBuilding.requestToUp[i] && i + 1 < myBuilding.myElevator[temp].downDestination &&
+                                (myBuilding.myElevator[temp].upDestination > i + 1 || myBuilding.myElevator[temp].upDestination == -1))
+                            {
+                                myBuilding.myElevator[temp].upDestination = i + 1;
+                            }
+                        }
+                        else
+                        {
+                            if (myBuilding.requestToDown[i] && i + 1 < myBuilding.myElevator[temp].upDestination &&
+                               (myBuilding.myElevator[temp].downDestination > i + 1 || myBuilding.myElevator[temp].downDestination == -1))
+                            {
+                                myBuilding.myElevator[temp].downDestination = i + 1;
+                            }
+                            if (myBuilding.requestToUp[i] && i + 1 < myBuilding.myElevator[temp].downDestination &&
+                                (myBuilding.myElevator[temp].upDestination > i + 1 || myBuilding.myElevator[temp].upDestination == -1))
+                            {
+                                myBuilding.myElevator[temp].upDestination = i + 1;
+                            }
                         }
                     }
                 }
@@ -208,7 +377,7 @@ namespace WindowsFormsApp1
                 myBuilding.newOp[i] = false;
             }
         }
-        private void putOut(int floorNum,bool isUp,bool isDown)
+        private void putOut(int floorNum, bool isUp, bool isDown)
         {
             switch (floorNum)
             {
@@ -216,9 +385,9 @@ namespace WindowsFormsApp1
                     button1.BackColor = Color.FromArgb(255, 240, 240, 240);
                     break;
                 case 2:
-                    if(!isDown)
+                    if (!isDown)
                         button13.BackColor = Color.FromArgb(255, 240, 240, 240);
-                    if(!isUp)
+                    if (!isUp)
                         button34.BackColor = Color.FromArgb(255, 240, 240, 240);
                     break;
                 case 3:
@@ -278,7 +447,8 @@ namespace WindowsFormsApp1
                 case 12:
                     if (!isDown)
                         button3.BackColor = Color.FromArgb(255, 240, 240, 240);
-                    button24.BackColor = Color.FromArgb(255, 240, 240, 240);
+                    if (!isUp)
+                        button24.BackColor = Color.FromArgb(255, 240, 240, 240);
                     break;
                 case 13:
                     if (!isDown)
@@ -331,9 +501,13 @@ namespace WindowsFormsApp1
         }
         private void elevatorPutOut(int numOfElevator)
         {
-            putOut(myBuilding.myElevator[numOfElevator].nowAt, myBuilding.myElevator[numOfElevator].isUp, 
+            putOut(myBuilding.myElevator[numOfElevator].nowAt, myBuilding.myElevator[numOfElevator].isUp,
                 myBuilding.myElevator[numOfElevator].isDown);
-            switch (myBuilding.myElevator[numOfElevator].nowAt)
+            elevatorPutOutItem(myBuilding.myElevator[numOfElevator].nowAt, numOfElevator);
+        }
+        private void elevatorPutOutItem(int num,int numOfElevator)
+        {
+            switch (num)
             {
                 case 1:
                     switch (numOfElevator)
@@ -737,7 +911,7 @@ namespace WindowsFormsApp1
                     break;
             }
         }
-        private void set(int eleNum,int flNum)
+        private void set(int eleNum, int flNum)
         {
             if (myBuilding.myElevator[eleNum].nowAt > flNum)
             {
@@ -1794,5 +1968,33 @@ namespace WindowsFormsApp1
         {
             emergency(4);
         }
+
+        private void numChange(int elevatorNum)
+        {
+            switch (elevatorNum)
+            {
+                case 0:
+                    pictureBox7.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt % 10];
+                    pictureBox6.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt / 10];
+                    break;
+                case 1:
+                    pictureBox8.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt % 10];
+                    pictureBox9.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt / 10];
+                    break;
+                case 2:
+                    pictureBox10.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt % 10];
+                    pictureBox11.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt / 10];
+                    break;
+                case 3:
+                    pictureBox12.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt % 10];
+                    pictureBox13.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt / 10];
+                    break;
+                case 4:
+                    pictureBox14.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt % 10];
+                    pictureBox15.Image = imageList1.Images[myBuilding.myElevator[elevatorNum].nowAt / 10];
+                    break;
+            }
+        }
     }
 }
+

@@ -15,6 +15,18 @@ namespace WindowsFormsApp1
                 needToStop[i] = false;
             }
         }
+        public void clear()
+        {
+            for(int i = 0; i < 20; i++)
+            {
+                if (needToStop[i])
+                    return;
+            }
+            isDown = false;
+            isUp = false;
+            downDestination = -1;
+            upDestination = -1;
+        }//用于清除一些奇怪的上下目的地
         public bool up()
         {
             if (nowAt == 20)
@@ -55,28 +67,13 @@ namespace WindowsFormsApp1
         public bool[] needToStop = new bool[20];//电梯内按钮，在第几楼停一下
         public int nowAt = 1;//当前所在楼层，默认为1，范围为1~20,一个时间单位最多只能移动一层。
     }
-    public class Floor//一到20楼一楼一个对象
-    {
-        public Floor(int num = 1)
-        {
-            floorNum = num;
-        }
-        public int floorNum;//楼层号
 
-        public bool needToUp = false;
-        public bool needToDown = false;
-        //需要上下行
-    }
     public class Building
     {
         public Building()
         {
 
-            for(int i = 0; i < 20; i++)
-            {
-                myFloor[i] = new Floor();
-                myFloor[i].floorNum = i + 1;
-            }//设置楼层号
+
             for(int i = 0; i < 5; i++)
             {
                 myElevator[i] = new Elevator();
@@ -88,7 +85,18 @@ namespace WindowsFormsApp1
                 newOp[i] = false;
             }
         }
-        
+        public void clear()
+        {
+            for(int i = 0; i < 20; i++)
+            {
+                if (requestToUp[i] || requestToDown[i])
+                    return;
+            }
+            for(int i = 0; i < 5; i++)
+            {
+                myElevator[i].clear();
+            }
+        }
         public bool allFalse()//都错误返回false，否则返回true
         {
             for(int i = 0; i < 20; i++)
@@ -107,7 +115,7 @@ namespace WindowsFormsApp1
             }
             return false;
         }
-        public int judge(int floorNum,int except)//判断应该使用哪部电梯
+        public int judge(int floorNum,int except, bool up/*false则代表向下*/)//判断应该使用哪部电梯
         {
             int[] cost = new int[5];
             for(int i = 0; i < 5; i++)
@@ -137,32 +145,61 @@ namespace WindowsFormsApp1
                     }
                     else
                     {
-                        int end = 20;
-                        for(int j = 20; j >= floorNum; j--)
+                        if (up)
                         {
-                            if (requestToDown[j - 1])//最高层的一个向下请求
+                            int end = 20;
+                            for (int j = 20; j >= floorNum; j--)
                             {
-                                end = j;
-                                break;
+                                if (requestToDown[j - 1])//最高层的一个向下请求
+                                {
+                                    end = j;
+                                    break;
+                                }
+                            }
+                            cost[i] = (end - myElevator[i].nowAt) + (end - floorNum);
+                            for (int j = myElevator[i].nowAt; j < end; j++)
+                            {
+                                if (requestToUp[j - 1])
+                                {
+                                    cost[i] += 3;
+                                }
+                                else if (myElevator[i].needToStop[j])
+                                {
+                                    cost[i] += 3;
+                                }
+                            }
+                            for (int j = end; j > floorNum; j--)
+                            {
+                                if (requestToDown[j - 1])
+                                {
+                                    cost[i] += 3;
+                                }
                             }
                         }
-                        cost[i] = (end - myElevator[i].nowAt) + (end - floorNum);
-                        for(int j = myElevator[i].nowAt; j < end; j++)
+                        else
                         {
-                            if (requestToUp[j - 1])
+                            cost[i] = 2 * myElevator[i].upDestination - myElevator[i].nowAt - floorNum;
+                            for(int j = myElevator[i].nowAt + 1; j <= myElevator[i].upDestination; j++)
                             {
-                                cost[i]+=3;
+                                if (requestToUp[j - 1])
+                                {
+                                    cost[i] += 3;
+                                }
+                                else if (myElevator[i].needToStop[j])
+                                {
+                                    cost[i] += 3;
+                                }
                             }
-                            else if (myElevator[i].needToStop[j])
+                            for(int j = myElevator[i].upDestination; j > floorNum; j--)
                             {
-                                cost[i]+=3;
-                            }
-                        }
-                        for(int j = end; j > floorNum; j--)
-                        {
-                            if (requestToDown[j - 1])
-                            {
-                                cost[i]+=3;
+                                if (requestToDown[j - 1])
+                                {
+                                    cost[i] += 3;
+                                }
+                                else if (myElevator[i].needToStop[j])
+                                {
+                                    cost[i] += 3;
+                                }
                             }
                         }
                     }
@@ -182,28 +219,57 @@ namespace WindowsFormsApp1
                     }
                     else
                     {
-                        int end = 1;
-                        for (int j = 1; j <= floorNum; j++)
+                        if (!up)
                         {
-                            if (requestToUp[j - 1])//最低层的一个向上请求
+                            int end = 1;
+                            for (int j = 1; j <= floorNum; j++)
                             {
-                                end = j;
-                                break;
+                                if (requestToUp[j - 1])//最低层的一个向上请求
+                                {
+                                    end = j;
+                                    break;
+                                }
+                            }
+                            cost[i] = (myElevator[i].nowAt - end) + (floorNum - end);
+                            for (int j = myElevator[i].nowAt; j > end; j--)
+                            {
+                                if (requestToDown[j - 1])
+                                {
+                                    cost[i] += 3;
+                                }
+                            }
+                            for (int j = end; j < floorNum; j++)
+                            {
+                                if (requestToDown[j - 1])
+                                {
+                                    cost[i] += 3;
+                                }
                             }
                         }
-                        cost[i] = (myElevator[i].nowAt - end) + (floorNum - end);
-                        for (int j = myElevator[i].nowAt; j > end; j--)
+                        else
                         {
-                            if (requestToDown[j - 1])
+                            cost[i] = -2 * myElevator[i].downDestination + myElevator[i].nowAt + floorNum;
+                            for (int j = myElevator[i].nowAt - 1; j >= myElevator[i].downDestination; j--)
                             {
-                                cost[i]+=3;
+                                if (requestToDown[j - 1])
+                                {
+                                    cost[i] += 3;
+                                }
+                                else if (myElevator[i].needToStop[j])
+                                {
+                                    cost[i] += 3;
+                                }
                             }
-                        }
-                        for (int j = end; j < floorNum; j++)
-                        {
-                            if (requestToDown[j - 1])
+                            for (int j = myElevator[i].downDestination; j < floorNum; j++)
                             {
-                                cost[i]+=3;
+                                if (requestToUp[j - 1])
+                                {
+                                    cost[i] += 3;
+                                }
+                                else if (myElevator[i].needToStop[j])
+                                {
+                                    cost[i] += 3;
+                                }
                             }
                         }
                     }
@@ -231,7 +297,6 @@ namespace WindowsFormsApp1
         }
         public bool[] newOp = new bool[20];//第几层有新操作
         public Elevator[] myElevator = new Elevator[5];//大楼有五部电梯
-        public Floor[] myFloor = new Floor[20];//大楼有20层
         public bool[] requestToUp = new bool[20];//i+1代表楼层数，true时说明该楼层请求上行
         public bool[] requestToDown = new bool[20];//i+1代表楼层数，true时说明该楼层请求下行
     }
@@ -256,3 +321,4 @@ namespace WindowsFormsApp1
 //周一及周二白天任务：debug 加显示屏 按钮被按后需求若未被解决则需变色
 //新bug：1.先点高楼层的上行 再点低楼层的 会止步于低楼层
 //2.在根据电梯内的按键的指令下行过程中 如果点了已经在上面了的楼层的上行，会掉头向上(已解决)
+//5.19深夜 needtostop参数的设置为false的机制要改，目前不是上下都灭才false，而是只要有一个灭了就false了
