@@ -40,7 +40,49 @@ namespace WindowsFormsApp1
             button1.BackColor = Color.DeepSkyBlue;
         }
 
-       
+       private void emergency(int elevatorNum)
+        {
+            myBuilding.myElevator[elevatorNum].stop = true;
+            myBuilding.myElevator[elevatorNum].stopTime = 10000;
+            int up = myBuilding.myElevator[elevatorNum].upDestination;
+            int down = myBuilding.myElevator[elevatorNum].downDestination;
+            int temp;
+            if (up != -1)
+            {
+                temp = myBuilding.judge(up, elevatorNum);
+                if (myBuilding.myElevator[temp].upDestination != -1 && up > myBuilding.myElevator[temp].upDestination)
+                {
+                    myBuilding.myElevator[temp].upDestination = up;
+                }
+                
+                else
+                {
+                    if (up > myBuilding.myElevator[temp].nowAt)
+                    {
+                        if (up > myBuilding.myElevator[temp].upDestination)
+                            myBuilding.myElevator[temp].upDestination = up;
+                        if (!myBuilding.myElevator[temp].isDown)
+                            myBuilding.myElevator[temp].isUp = true;
+                    }
+                    
+                }
+            }
+            if (down != -1)
+            {
+                temp = myBuilding.judge(down, elevatorNum);
+                if (myBuilding.myElevator[temp].downDestination != -1 && down < myBuilding.myElevator[temp].downDestination)
+                {
+                    myBuilding.myElevator[temp].downDestination = down;
+                }
+                else if (down < myBuilding.myElevator[temp].nowAt)
+                {
+                    if (down < myBuilding.myElevator[temp].downDestination)
+                        myBuilding.myElevator[temp].downDestination = down;
+                    if (!myBuilding.myElevator[temp].isUp)
+                        myBuilding.myElevator[temp].isDown = true;
+                }
+            }
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -68,7 +110,11 @@ namespace WindowsFormsApp1
             {
                 if (myBuilding.myElevator[i].stop)
                 {
-                    myBuilding.myElevator[i].stop = false;
+                    myBuilding.myElevator[i].stopTime--;
+                    if (myBuilding.myElevator[i].stopTime == 0)
+                    {
+                        myBuilding.myElevator[i].stop = false;
+                    }
                 }
                 else
                 {
@@ -95,6 +141,7 @@ namespace WindowsFormsApp1
                         (!myBuilding.myElevator[i].isUp && myBuilding.requestToDown[myBuilding.myElevator[i].nowAt - 1]))
                     {
                         myBuilding.myElevator[i].stop = true;
+                        myBuilding.myElevator[i].stopTime = 3;
                         myBuilding.myElevator[i].needToStop[myBuilding.myElevator[i].nowAt - 1] = false;
                         myBuilding.requestToUp[myBuilding.myElevator[i].nowAt - 1] = false;
                         myBuilding.requestToDown[myBuilding.myElevator[i].nowAt - 1] = false;
@@ -106,7 +153,7 @@ namespace WindowsFormsApp1
             {
                 if (myBuilding.newOp[i])
                 {
-                    int temp = myBuilding.judge(i + 1);
+                    int temp = myBuilding.judge(i + 1,-1);
 
                     if (myBuilding.myElevator[temp].upDestination != -1 && i + 1 > myBuilding.myElevator[temp].upDestination)
                     {
@@ -120,13 +167,17 @@ namespace WindowsFormsApp1
                     {
                         if (i + 1 > myBuilding.myElevator[temp].nowAt)
                         {
-                            myBuilding.myElevator[temp].upDestination = i + 1;
-                            myBuilding.myElevator[temp].isUp = true;
+                            if(i+1> myBuilding.myElevator[temp].upDestination)
+                                myBuilding.myElevator[temp].upDestination = i + 1;
+                            if (!myBuilding.myElevator[temp].isDown)
+                                myBuilding.myElevator[temp].isUp = true;
                         }
                         else if(i+1< myBuilding.myElevator[temp].nowAt)
                         {
-                            myBuilding.myElevator[temp].downDestination = i + 1;
-                            myBuilding.myElevator[temp].isDown = true;
+                            if(i+1<myBuilding.myElevator[temp].downDestination)
+                                myBuilding.myElevator[temp].downDestination = i + 1;
+                            if(!myBuilding.myElevator[temp].isUp)
+                                myBuilding.myElevator[temp].isDown = true;
                         }
                     }
                 }
@@ -1717,6 +1768,31 @@ namespace WindowsFormsApp1
         private void button145_Click(object sender, EventArgs e)
         {
             myBuilding.myElevator[4].stop = false;
+        }
+
+        private void button149_Click(object sender, EventArgs e)
+        {
+            emergency(0);
+        }
+
+        private void button150_Click(object sender, EventArgs e)
+        {
+            emergency(1);
+        }
+
+        private void button151_Click(object sender, EventArgs e)
+        {
+            emergency(2);
+        }
+
+        private void button152_Click(object sender, EventArgs e)
+        {
+            emergency(3);
+        }
+
+        private void button153_Click(object sender, EventArgs e)
+        {
+            emergency(4);
         }
     }
 }

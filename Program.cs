@@ -45,6 +45,7 @@ namespace WindowsFormsApp1
             return false;
         }
         public bool stop = false;//每次开门需要停一个时间间隔，为了在间隔时间跳过操作，需设置为true
+        public int stopTime = 0;//当开始停下时，默认设置为3
         public bool running = false;//该项为true时，电梯在移动
         public bool isUp = false;//该项为true时，电梯上行
         public bool isDown = false;//该项为true时，电梯下行
@@ -87,6 +88,7 @@ namespace WindowsFormsApp1
                 newOp[i] = false;
             }
         }
+        
         public bool allFalse()//都错误返回false，否则返回true
         {
             for(int i = 0; i < 20; i++)
@@ -105,11 +107,13 @@ namespace WindowsFormsApp1
             }
             return false;
         }
-        public int judge(int floorNum)//判断应该使用哪部电梯
+        public int judge(int floorNum,int except)//判断应该使用哪部电梯
         {
             int[] cost = new int[5];
             for(int i = 0; i < 5; i++)
             {
+                if (i == except) 
+                    continue;
                 if(myElevator[i].nowAt == floorNum)
                 {
                     return i;
@@ -121,13 +125,13 @@ namespace WindowsFormsApp1
                         cost[i] = myElevator[i].nowAt - floorNum;
                         for(int j = myElevator[i].nowAt; j > floorNum; j--)
                         {
-                            if (requestToDown[j - 1])//设每次停下的时长为一个时间间隔,使用这种数组的数据时记得中括号内-1
+                            if (requestToDown[j - 1])//设每次停下的时长为3个时间间隔,使用这种数组的数据时记得中括号内-1
                             {
-                                cost[i]++;
+                                cost[i]+=3;
                             }
                             else if (myElevator[i].needToStop[j - 1])
                             {
-                                cost[i]++;
+                                cost[i]+=3;
                             }
                         }
                     }
@@ -147,18 +151,18 @@ namespace WindowsFormsApp1
                         {
                             if (requestToUp[j - 1])
                             {
-                                cost[i]++;
+                                cost[i]+=3;
                             }
                             else if (myElevator[i].needToStop[j])
                             {
-                                cost[i]++;
+                                cost[i]+=3;
                             }
                         }
                         for(int j = end; j > floorNum; j--)
                         {
                             if (requestToDown[j - 1])
                             {
-                                cost[i]++;
+                                cost[i]+=3;
                             }
                         }
                     }
@@ -172,7 +176,7 @@ namespace WindowsFormsApp1
                         {
                             if (requestToUp[j - 1])//设每次停下的时长为一个时间间隔,使用这种数组的数据时记得中括号内-1
                             {
-                                cost[i]++;
+                                cost[i]+=3;
                             }
                         }
                     }
@@ -192,22 +196,32 @@ namespace WindowsFormsApp1
                         {
                             if (requestToDown[j - 1])
                             {
-                                cost[i]++;
+                                cost[i]+=3;
                             }
                         }
                         for (int j = end; j < floorNum; j++)
                         {
                             if (requestToDown[j - 1])
                             {
-                                cost[i]++;
+                                cost[i]+=3;
                             }
                         }
                     }
                 }
             }
-            int ans = 0;
+            int ans;
+            if (except != 0)
+            {
+                ans = 0;
+            }
+            else
+            {
+                ans = 1;
+            }
             for(int i = 1; i < 5; i++)
             {
+                if (except == i)
+                    continue;
                 if (cost[i] < cost[ans])
                 {
                     ans = i;
@@ -241,4 +255,4 @@ namespace WindowsFormsApp1
 //2021.5.16晚 电梯到最高层后再下来会出问题
 //周一及周二白天任务：debug 加显示屏 按钮被按后需求若未被解决则需变色
 //新bug：1.先点高楼层的上行 再点低楼层的 会止步于低楼层
-//2.在根据电梯内的按键的指令下行过程中 如果点了已经在上面了的楼层的上行，会掉头向上
+//2.在根据电梯内的按键的指令下行过程中 如果点了已经在上面了的楼层的上行，会掉头向上(已解决)

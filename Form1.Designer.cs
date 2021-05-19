@@ -2219,6 +2219,7 @@ namespace WindowsFormsApp1
             this.button149.TabIndex = 254;
             this.button149.Text = "⚠️";
             this.button149.UseVisualStyleBackColor = false;
+            this.button149.Click += new System.EventHandler(this.button149_Click);
             // 
             // button150
             // 
@@ -2230,6 +2231,7 @@ namespace WindowsFormsApp1
             this.button150.TabIndex = 255;
             this.button150.Text = "⚠️";
             this.button150.UseVisualStyleBackColor = false;
+            this.button150.Click += new System.EventHandler(this.button150_Click);
             // 
             // button151
             // 
@@ -2241,6 +2243,7 @@ namespace WindowsFormsApp1
             this.button151.TabIndex = 256;
             this.button151.Text = "⚠️";
             this.button151.UseVisualStyleBackColor = false;
+            this.button151.Click += new System.EventHandler(this.button151_Click);
             // 
             // button152
             // 
@@ -2252,6 +2255,7 @@ namespace WindowsFormsApp1
             this.button152.TabIndex = 257;
             this.button152.Text = "⚠️";
             this.button152.UseVisualStyleBackColor = false;
+            this.button152.Click += new System.EventHandler(this.button152_Click);
             // 
             // button153
             // 
@@ -2263,6 +2267,7 @@ namespace WindowsFormsApp1
             this.button153.TabIndex = 258;
             this.button153.Text = "⚠️";
             this.button153.UseVisualStyleBackColor = false;
+            this.button153.Click += new System.EventHandler(this.button153_Click);
             // 
             // Form1
             // 
