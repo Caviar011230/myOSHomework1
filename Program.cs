@@ -27,24 +27,6 @@ namespace WindowsFormsApp1
             downDestination = -1;
             upDestination = -1;
         }//用于清除一些奇怪的上下目的地
-        public bool up()
-        {
-            if (nowAt == 20)
-            {
-                return false;
-            }
-            nowAt++;
-            return true;
-        }
-        public bool down()
-        {
-            if (nowAt == 1)
-            {
-                return false;
-            }
-            nowAt--;
-            return true;
-        }
         public bool allFalse()//
         {
             for(int i = 0; i < 20; i++)
@@ -66,6 +48,7 @@ namespace WindowsFormsApp1
         public bool doorOpen = false;//true时门开，false时门关
         public bool[] needToStop = new bool[20];//电梯内按钮，在第几楼停一下
         public int nowAt = 1;//当前所在楼层，默认为1，范围为1~20,一个时间单位最多只能移动一层。
+        public bool broken = false;//电梯是否损坏
     }
 
     public class Building
